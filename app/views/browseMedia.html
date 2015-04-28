@@ -1,0 +1,31 @@
+<div class="homeContainer" ng-controller="mediaBrowseCtrl">
+  <h1 class="printBrowseTitle">{{header}}</h1>
+  <div class="row-fluid">
+<paginationsummary total-items="data.arrayLength" class="pagination"
+				items-per-page="data.entryLimit" page="data.currentPage"></paginationsummary>
+  </div>
+  <div class="row-fluid videosContainer" > 
+  	<img class="span1 showBackIcon" ng-class="{disableIcon:data.currentPage==1}" src="images/circle_back.jpg"  ng-click="browseBackButton()">
+      <figure  ng-repeat="data in dt=(dataArray |startFrom:(data.currentPage-1)*data.entryLimit | limitTo:data.entryLimit)" class="videoContainer"   >
+       <img  ng-src="{{data.dataThumbnailLocation}}" class="thumbnail "ng-click="openDataModal(data)" >
+       <img src="images/feedback_icon.jpg" class="shareDataLink" ng-click="openSocialPage(data)">
+       <dataLink class="dataLink"ng-click="openDataModal(data)" ><a>{{data.dataLink}}</a></dataLink>
+        <div class="completeDataLink">{{data.dataLink}}</div>
+    </figure>
+  
+
+    
+    <!--<figure ng-show="linkState=='/images'" ng-repeat="image in img=(imageArray |startFrom:(data.currentPage-1)*data.entryLimit | limitTo:data.entryLimit)" class=" imageContainer"    >
+      <img  ng-src="{{image.dataLocation}}" class=" thumbnail " ng-click="openDataModal(image,'image')" >
+      <figcaption class="" ng-click="openDataModal(image,'image')">{{image.dataTitle}}</figcaption>
+      <img src="images/share_S.jpg" class="shareDataLink" ng-click="openSocialPage(image,'image')">
+      <dataLink class="dataLink" ng-click="openDataModal(image,'image')"><a href="">{{image.dataLink}}</a></dataLink>
+    </figure>
+    <figure  ng-show="linkState=='/documents'" ng-repeat="document in doc=(documentArray |startFrom:(data.currentPage-1)*data.entryLimit | limitTo:data.entryLimit)" class=" documentContainer"    >
+      <img  ng-src="{{document.dataThumbnailLocation}}" class="thumbnail  " ng-click="openDataModal(document,'document')" >
+      <img src="images/share_S.jpg" class="shareDataLink" ng-click="openSocialPage(document,'document')">
+      <dataLink class="dataLink" ng-click="openDataModal(document,'document')"><a href="">{{document.dataTitle}}</a></dataLink>
+    </figure>-->
+    <img class="span1 showForwardIcon" src="images/circle_forward.jpg" ng-class="{disableIcon:data.arrayLength-data.currentPage*data.entryLimit<=0}" ng-click="browseForwardButton()">
+  	</div>
+</div>

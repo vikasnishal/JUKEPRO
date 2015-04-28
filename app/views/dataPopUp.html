@@ -1,0 +1,68 @@
+<div id="dataModal" class="modal-body">
+	<img src="images/close.png" class="closeModal pull-right"
+		ng-click="closeModal();">
+		<span class="closeTextModal">close</span>
+	<div class="row-fluid">
+		<video controls class=" span13 modalVideoSize"
+			ng-show="details.dataLocal.dataType=='video'" height="500" autoplay preload>
+			<source ng-src="{{details.dataLocal.dataLocation}}" type="video/mp4">
+				<source ng-src="{{details.dataLocal.dataLocation}}" type="video/ogg">
+					Your browser does not support the video tag.
+		</video>
+		<div class="span13 modalImageSize" ng-show="details.dataLocal.dataType=='image'">
+			<img ng-src="{{details.dataLocal.dataLocation}}"
+				class="modalImageDimension">
+		</div>
+		<object data="{{details.dataLocal.dataLocation}}"
+			type="application/pdf" class="pull-left modalDocumentContainer"
+			height="500" ng-show="details.dataLocal.dataType=='document' && details.dataLocal.dataLink!='Word Document'">
+			<embed ng-src=" {{details.dataLocal.dataLocation}}"
+				type="application/pdf">
+			&nbsp;
+			</embed>
+                    alt :<a href="{{details.dataLocal.dataLocation}}">
+         </object>
+		<iframe ng-show="details.dataLocal.dataType=='document' && details.dataLocal.dataLink=='Word Document'" src="https://drive.google.com/file/d/0B5PaxB9kMXKbTUxDZnhpQnVIZV9GaGpwNjlOX3B2S2dZTEw4/edit?usp=sharing" class="modalDocTypeContainer"></iframe>
+		<div class=" span10 questionOuterContainer ">
+
+			<h2 class="modalTitle">{{details.dataLocal.dataLink}}</h2>
+
+
+			<div ng-repeat="question in details.dataLocal.questions"
+				class="row-fluid modalQuestion">
+				<div class="row-fluid">
+					<div class="span2 offset1">
+						<strong>Q. </strong>
+					</div>
+					<div class="span20">
+						<strong>{{question.question}}</strong>
+					</div>
+				</div>
+				<div class="row-fluid" ng-repeat="choice in question.choices">
+					<div class="span2 offset2">
+						<input type="radio" ng-value="choice" ng-model="question.answer">
+					</div>
+					<div class="span19">{{choice}}</div>
+				</div>
+			</div>
+			<div class="row-fluid" ng-show="showErrorMessage">
+				<div class="acceptSelectedContainer">
+					<span>Please answer all questions</span> <img
+						src="images/close.png" class="closeImagePosition pull-right"
+						ng-click="closeErrorMessage();">
+				</div>
+			</div>
+			<div class="row-fluid" ng-show="showSuccessMessage">
+				<div class="acceptSelectedContainer">
+					<span>Your Response is Submitted</span>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<button class="btn offset7 span8 submitResponseButton"
+					ng-click="submitResponse(details.dataLocal)">Submit</button>
+			</div>
+
+		</div>
+	</div>
+
+</div>

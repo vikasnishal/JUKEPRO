@@ -1,0 +1,63 @@
+<div class="homeContainer" ng-controller="detailCtrl">
+	<img src="images/close.png" class="closeDetail pull-right"
+		ng-click="closeDetail();">
+		<span class="closeText">close</span>
+	<div class="row-fluid outerDetailContainer">
+		<figure class=""  ng-show="detail.dataInput.dataType=='video'"  class="videoContainer" >
+  			<video  class="detailVideo" controls>
+  				<source ng-src="{{detail.dataInput.dataLocation}}" type="video/mp4">
+  				<!--<source ng-src="{{detail.dataInput.dataLocation}}" type="video/ogg">
+  				<source ng-src="{{detail.dataInput.dataLocation}}" type="video/webm">-->
+  			</video>
+       		
+       	</figure>
+       	
+       	<div class="" ng-show="detail.dataInput.dataType=='image'">
+			<img ng-src="{{detail.dataInput.dataLocation}}" class="detailImage " >
+		</div>
+		<div class="" ng-show="detail.dataInput.dataType=='document' && detail.dataInput.dataLink!='Word Document'">
+			<object data="{{detail.dataInput.dataLocation}}" type="application/pdf" class="pull-left detailDocument"  height="400" >
+                <embed ng-src=" {{detail.dataInput.dataLocation}}" type="application/pdf">&nbsp; </embed>
+                    alt :<a href="{{detail.dataInput.dataLocation}}">
+                </object>
+                
+		</div>
+		<iframe ng-show="detail.dataInput.dataType=='document' && detail.dataInput.dataLink=='Word Document'"src="https://drive.google.com/file/d/0B5PaxB9kMXKbTUxDZnhpQnVIZV9GaGpwNjlOX3B2S2dZTEw4/edit?usp=sharing" height="1380" width="640"></iframe>
+		
+		<mediaDetail class="" >{{detail.dataInput.dataLink}}</mediaDetail>
+	</div>
+	 
+  		
+	<div class="row-fluid activeUser">
+		<div class="span2">
+			<img src="images/annonymous_user.jpg" class="userImage">
+		</div>
+		<div class="span16 commentsBox">
+			<div><a>Kevin James</a></div>
+			<div>
+				<input type="text" ng-model="comment" placeholder="Share Your Thoughts"ng-enter="submitComment(comment)" class="activeComment ">
+				<img ng-show="comment"src="images/close.png" class="clearText" ng-click="clearText()"> </img>
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid listedUsers" ng-repeat="comment in cmt=(detail.dataInput.comments |limitTo:(comments.entryLimit*comments.currentPage))">
+			<div class="span2">
+			<img ng-src="{{comment.userImage}}" class="listedUser ">
+			</div>
+		<div class="span15 commentsBox">
+		<div><a>{{comment.userName}}</a></div>
+		<div >{{comment.comment}}</div>
+		</div>
+
+		<br>
+	</div>
+	<div class="row-fluid" ng-show="detail.dataInput.comments.length>(comments.currentPage)*(comments.entryLimit)">
+		<button class="btn offset1 showMoreButton" ng-click="showMoreComments()">Show More</button>
+	</div>
+	<div class="row-fluid" ng-show="detail.dataInput.comments.length<(comments.currentPage)*(comments.entryLimit) && (comments.currentPage!=1)">
+		<button class="btn offset1 showMoreButton" ng-click="showLessComments()">Show Less</button>
+	</div>
+
+
+
+</div>
